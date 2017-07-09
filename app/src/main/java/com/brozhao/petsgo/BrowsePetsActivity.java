@@ -27,10 +27,10 @@ public class BrowsePetsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.browse_pets);
         ListView petsListView = (ListView) findViewById(R.id.petsList);
-        String[] info = {"2017-07-03", "你家門前", "貴賓", "公", "小型", "民眾捨獲", "僅供飼主指認.不予開放領養",
-                "http://dog.chiayi.gov.tw/upload/bigphoto/thumbnail/announcement20170703102106-1.jpg"};
-        String[] info2 = {"2017-07-13", "地點", "喵喵", "母", "大型", "民眾捨獲", "",
-                "http://dog.chiayi.gov.tw/upload/bigphoto/thumbnail/announcement20170527113644-1.jpg"};
+        String[] info = {"2017-07-13", "你家門口", "汪汪", "無", "小型", "無中生有", "這是一隻虛擬汪汪，讓你評估每月花費",
+                "http://imgur.com/d2Mkc3L.png"};
+        String[] info2 = {"2017-07-13", "你家門口", "喵喵", "無", "小型", "無中生有", "這是一隻虛擬喵喵，讓你評估每月花費",
+                "http://imgur.com/VvR0god.png"};
         //"http://imgur.com/qNRo8LX.png"
         for (int i = 0; i < 5; i++) {
             petsList.add(new PetsData(info));
