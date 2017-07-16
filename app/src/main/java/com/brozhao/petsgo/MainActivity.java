@@ -1,7 +1,10 @@
 package com.brozhao.petsgo;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -13,6 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,6 +43,8 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+        refreshContent();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -102,5 +111,31 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    private void refreshContent(){
+        ConstraintLayout seemsEmpty = (ConstraintLayout) findViewById(R.id.seemsEmpty);
+        ConstraintLayout petsListLayout = (ConstraintLayout) findViewById(R.id.petsListLayout);
+
+        Cursor cs = DBHelper.getMyPetCursor(this);
+        if (cs.getCount() == 0) {
+            seemsEmpty.setVisibility(View.VISIBLE);
+            petsListLayout.setVisibility(View.GONE);
+        } else {
+            seemsEmpty.setVisibility(View.GONE);
+            petsListLayout.setVisibility(View.VISIBLE);
+            List<MyPetInfo> myPetInfoList = new ArrayList<>();
+            cs.moveToFirst();
+            for (int i = 0; i < cs.getCount(); i++) {
+                String name = cs.getString(1);
+                double foodCookie = cs.getDouble(2);
+                double foodCan = cs.getDouble(3);
+                myPetInfoList.add(new MyPetInfo(name, foodCookie, foodCan));
+                cs.moveToNext();
+            }
+            MyPetsListAdapter myPetsListAdapter = new MyPetsListAdapter(this, myPetInfoList);
+            ListView myPetsListView = (ListView) findViewById(R.id.petListView);
+            myPetsListView.setAdapter(myPetsListAdapter);
+        }
+        cs.close();
     }
 }

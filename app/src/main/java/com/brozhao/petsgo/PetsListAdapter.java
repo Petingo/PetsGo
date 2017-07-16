@@ -17,29 +17,29 @@ import java.util.List;
  */
 
 public class PetsListAdapter extends BaseAdapter {
-    private List<PetsData> petsList;
+//    private List<PetsData> petsList;
     private Context context;
     private LayoutInflater inflater;
 
-    PetsListAdapter(Context context, List<PetsData> petsList) {
+    PetsListAdapter(Context context) {
         this.inflater = LayoutInflater.from(context);
         this.context = context;
-        this.petsList = petsList;
+//        this.petsList = BrowsePetsActivity.petsList;
     }
 
     @Override
     public int getCount() {
-        return petsList.size();
+        return BrowsePetsActivity.petsList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return petsList.get(i);
+        return BrowsePetsActivity.petsList.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return petsList.indexOf(getItem(i));
+        return BrowsePetsActivity.petsList.indexOf(getItem(i));
     }
 
     @Override
@@ -69,8 +69,6 @@ public class PetsListAdapter extends BaseAdapter {
             main.setText(petsData.getVariety() + "，" + petsData.getSize());
             sex.setText(petsData.getSex());
             catchDate.setText(petsData.getCatchDate());
-
-
 
         }
         return view;

@@ -14,6 +14,7 @@ info[n]:
 5 <source>民眾捨獲</source>
 6 <memo>僅供飼主指認.不予開放領養</memo>
 7 <pic> http://dog.chiayi.gov.tw/upload/bigphoto/thumbnail/announcement20170703102106-1.jpg </pic>
+8 kind = dog / cat
  */
 public class PetsData {
     private String[] info = new String[8];
@@ -50,4 +51,5 @@ public class PetsData {
     public String getPicURL(){
         return this.info[7];
     }
+    public String getKind(){return this.info[8];}
 }

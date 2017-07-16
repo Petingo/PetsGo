@@ -8,6 +8,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 /**
@@ -21,9 +22,25 @@ public class Util {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(5000);
             conn.setRequestMethod("GET");
-            if(conn.getResponseCode() == 200) {
+            if (conn.getResponseCode() == 200) {
                 InputStream inputStream = conn.getInputStream();
                 return BitmapFactory.decodeStream(inputStream);
+            }
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static InputStream getDataFromURL(String inputURL) {
+        try {
+            URL url = new URL(inputURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(5000);
+            conn.setRequestMethod("GET");
+            if (conn.getResponseCode() == 200) {
+                return conn.getInputStream();
             }
             return null;
         } catch (IOException e) {
